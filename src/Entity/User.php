@@ -8,6 +8,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -74,6 +76,22 @@ class User implements UserInterface
      * @ORM\Column(type="string")
      */
     private $email;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string", length=255, unique=true, nullable=true)
+     */
+    private $apiKey;
+
+    /**
+     * @ORM\OneToMany(targetEntity=InterestMarks::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $interestMarks;
+
+    public function __construct()
+    {
+        $this->interestMarks = new ArrayCollection();
+    }
 
     /**
      * @return int
@@ -276,5 +294,48 @@ class User implements UserInterface
     public function eraseCredentials(): void
     {
         $this->plainPassword = null;
+    }
+
+    public function getApiKey(): ?string
+    {
+        return $this->apiKey;
+    }
+
+    public function setApiKey(string $apiKey): self
+    {
+        $this->apiKey = $apiKey;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|InterestMarks[]
+     */
+    public function getInterestMarks(): Collection
+    {
+        return $this->interestMarks;
+    }
+
+    public function addInterestMark(InterestMarks $interestMark): self
+    {
+        if (!$this->interestMarks->contains($interestMark)) {
+            $this->interestMarks[] = $interestMark;
+            $interestMark->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInterestMark(InterestMarks $interestMark): self
+    {
+        if ($this->interestMarks->contains($interestMark)) {
+            $this->interestMarks->removeElement($interestMark);
+            // set the owning side to null (unless already changed)
+            if ($interestMark->getUser() === $this) {
+                $interestMark->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }

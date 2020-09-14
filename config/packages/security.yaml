@@ -9,12 +9,26 @@ security:
         anaxago_provider:
             entity:
                 class: App\Entity\User
-                property: email
+                property: apiKey
 
     firewalls:
+        api:
+            anonymous: true
+            pattern: ^/api/anonymous
+            stateless: true
+
+        api-user:
+            anonymous: false
+            pattern: ^/api
+            stateless: true
+            guard:
+                authenticators:
+                    - App\Security\TokenAuthenticator
+
         main:
             provider: anaxago_provider
             anonymous: true
+            stateless: true
             guard:
                 authenticators:
                     - App\Security\AppAnaxagoAuthenticator

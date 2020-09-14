@@ -35,7 +35,8 @@ class UserFixtures extends Fixture
             ->setFirstName('John')
             ->setLastName('Doe')
             ->setEmail('john@local.com')
-            ->setPlainPassword('john');
+            ->setPlainPassword('john')
+            ->setApiKey("johnApiKey");
         $password = $this->passwordEncoder->encodePassword($investor, $investor->getPlainPassword());
         $investor->setPassword($password);
         $manager->persist($investor);
@@ -47,6 +48,7 @@ class UserFixtures extends Fixture
             // because we like security
             ->setPlainPassword('admin')
             ->addRoles('ROLE_ADMIN')
+            ->setApiKey("adminApiKey");
         ;
         $password = $this->passwordEncoder->encodePassword($admin, $admin->getPlainPassword());
         $admin->setPassword($password);

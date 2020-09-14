@@ -5,3 +5,8 @@ anaxago_starter:
 anaxago_security:
     resource: "routes/security/routing.yml"
     prefix:   /
+
+projects:
+    type: rest
+    resource: App\Controller\ProjectController
+    prefix: /api

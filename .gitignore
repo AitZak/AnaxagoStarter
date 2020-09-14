@@ -8,6 +8,7 @@
 /src/.preload.php
 /var/
 /vendor/
+docker/
 ###< symfony/framework-bundle ###
 ###< anxago ###
 vhost-anaxago.conf
