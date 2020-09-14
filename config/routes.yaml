@@ -1,0 +1,7 @@
+anaxago_starter:
+    resource: "routes/default/routing.yml"
+    prefix:   /
+
+anaxago_security:
+    resource: "routes/security/routing.yml"
+    prefix:   /

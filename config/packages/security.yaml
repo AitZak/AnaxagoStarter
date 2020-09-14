@@ -1,0 +1,24 @@
+# To get started with security, check out the documentation:
+# https://symfony.com/doc/current/security.html
+security:
+    encoders:
+        App\Entity\User:
+            algorithm: bcrypt
+
+    providers:
+        anaxago_provider:
+            entity:
+                class: App\Entity\User
+                property: email
+
+    firewalls:
+        main:
+            provider: anaxago_provider
+            anonymous: true
+            guard:
+                authenticators:
+                    - App\Security\AppAnaxagoAuthenticator
+                entry_point: App\Security\AppAnaxagoAuthenticator
+            logout:
+                path: app_logout
+                target: /
