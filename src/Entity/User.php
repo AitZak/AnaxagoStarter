@@ -12,6 +12,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity
@@ -31,6 +33,7 @@ class User implements UserInterface
     /**
      * @var string
      *
+     * @Groups({"projects"})
      * @ORM\Column(type="string")
      */
     private $firstName;
@@ -38,6 +41,7 @@ class User implements UserInterface
     /**
      * @var string
      *
+     * @Groups({"projects"})
      * @ORM\Column(type="string")
      */
     private $lastName;
@@ -50,6 +54,8 @@ class User implements UserInterface
 
     /**
      * @var string
+     *
+     * @Groups({"projects"})
      * @ORM\Column(type="string")
      */
     private $password;
@@ -67,12 +73,14 @@ class User implements UserInterface
 
     /**
      * @var string
+     * @Groups({"projects","interests"})
      * @ORM\Column(type="string")
      */
     private $username;
 
     /**
      * @var string
+     * @Groups({"projects"})
      * @ORM\Column(type="string")
      */
     private $email;

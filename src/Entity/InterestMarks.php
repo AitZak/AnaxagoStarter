@@ -4,6 +4,9 @@ namespace App\Entity;
 
 use App\Repository\InterestMarksRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * @ORM\Entity(repositoryClass=InterestMarksRepository::class)
@@ -11,6 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
 class InterestMarks
 {
     /**
+     *
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
@@ -18,18 +22,24 @@ class InterestMarks
     private $id;
 
     /**
+     * @Groups({"interests"})
+     * @Groups({"projects"})
      * @ORM\Column(type="integer")
      */
     private $amountInvested;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="interestMarks")
+     * @Groups({"projects"})
+     * @Groups({"interests"})
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="interestMarks", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Project::class, inversedBy="interestMarks")
+     *
+     * @Groups({"interests"})
+     * @ORM\ManyToOne(targetEntity=Project::class, inversedBy="interestMarks", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $project;

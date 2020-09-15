@@ -20,7 +20,6 @@ class Project
 
     /**
      * @var int
-     *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -29,8 +28,7 @@ class Project
 
     /**
      * @var string
-     *
-     * @Groups("projects")
+     * @Groups({"projects"})
      * @Assert\NotBlank()
      * @ORM\Column(name="slug", type="string", length=255)
      */
@@ -39,7 +37,9 @@ class Project
     /**
      * @var string
      *
-     * @Groups("projects")
+     *
+     * @Groups({"interests"})
+     * @Groups({"projects"})
      * @Assert\NotBlank()
      * @ORM\Column(name="title", type="string", length=255)
      */
@@ -48,7 +48,9 @@ class Project
     /**
      * @var string
      *
-     * @Groups("projects")
+     *
+     * @Groups({"interests"})
+     * @Groups({"projects"})
      * @Assert\NotBlank()
      * @ORM\Column(name="description", type="text")
      */
@@ -57,26 +59,36 @@ class Project
     /**
      * @var string
      *
-     * @Groups("projects")
+     *
+     * @Groups({"projects"})
      * @Assert\NotBlank()
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(name="status",type="string", length=255)
      */
     protected $status;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="integer", nullable=true)
+     *
+     * @Groups({"projects"})
+     * @Assert\PositiveOrZero()
+     * @ORM\Column(name="triggering_treshold",type="integer", nullable=true)
      */
     private $triggeringTreshold;
 
     /**
+     *
+     * @Groups({"projects"})
      * @ORM\OneToMany(targetEntity=InterestMarks::class, mappedBy="project")
      */
     private $interestMarks;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     *
+     * @Groups({"projects"})
+     * @Groups({"interests"})
+     * @Assert\PositiveOrZero()
+     * @ORM\Column(name="funding",type="integer", nullable=true)
      */
     private $funding;
 
